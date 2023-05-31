@@ -22,7 +22,7 @@
                         <span class="text-danger">{{ errors[0] }}</span>
                     </ValidationProvider>
                 </div>
-                <div class="row">
+                <div class="row center-align">
                     <ValidationProvider class="form-group col-md-5" rules="required|email|min:10|max:100" v-slot="{ errors , classes}">
                         <label>Correo</label>
                         <input type="email" :class="classes" class="form-control" name="Correo"
@@ -37,7 +37,7 @@
                     </ValidationProvider>
                 </div>
                 <div class="col-lg">
-                    <button class="btn btn-success form-control" type="submit" id="id-btn-submit">Guardar <i
+                    <button class="btn btn-success form-control" type="submit" id="id-btn-submit">Guardar<i
                         class="far fa-save"></i></button>
                 </div>
             </form>

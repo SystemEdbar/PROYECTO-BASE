@@ -14,7 +14,7 @@ class MenuSeeder extends Seeder
      */
     public function run()
     {
-        $administracion = MenuUrl::create(['name' => 'Administración', 'link' => '#', 'icon' => 'fas fa-user-shield', 'father' => 0, 'order' => 1]);
+        $administracion = MenuUrl::create(['name' => 'Administración', 'link' => '#', 'icon' => 'fas fa-shield-alt ', 'father' => 0, 'order' => 1]);
         MenuUrl::create(['name' => 'Roles', 'link' => 'administracion/roles', 'icon' => 'fas fa-user-shield', 'father' => $administracion->id, 'order' => 1]);
         MenuUrl::create(['name' => 'Usuarios', 'link' => 'administracion/usuarios', 'icon' => 'fas fa-users', 'father' => $administracion->id, 'order' => 2]);
     }

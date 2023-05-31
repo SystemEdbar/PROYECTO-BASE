@@ -6,7 +6,6 @@
             <role-index
                 :role="{{json_encode($role)}}"
                 :permission="{{json_encode($permission)}}"
-                :menu="{{json_encode($menu)}}"
                 :url="'{{url('/administracion/roles')}}'"
             ></role-index>
         </div>

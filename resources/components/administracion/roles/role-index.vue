@@ -37,11 +37,11 @@
                 :thead-class="'bg-thead'"
                 @filtered="onFiltered">
                 <template #cell(actions)="row">
-                    <div v-if="row.item.name != 'Super Administrador'">
+                    <div v-if="row.item.name != 'Super Administrador' && row.item.name != 'Administrador'">
                         <i class="fas fa-user-tag text-primary" @click="updatePermissions(row.item.id, row.item.permissions)"
-                           title="Asignar Roles" role="button" aria-hidden="true"></i>
-                        <i class="fas fa-trash text-danger" @click="deleteUser(row.item.id)"
-                           title="Eliminar usuario" role="button" aria-hidden="true"></i>
+                           title="Asignar Permisos" role="button" aria-hidden="true"></i>
+                        <i class="fas fa-trash text-danger" @click="deleteRole(row.item.id)"
+                           title="Eliminar Roles" role="button" aria-hidden="true"></i>
                     </div>
                 </template>
                 <template #cell(id)="row">
@@ -110,7 +110,6 @@ export default {
     data() {
         return {
             items: this.role,
-            permissions: this.permission,
             fields: [
                 {key: 'id', label: 'Codigo', sortable: true, class: 'text-center'},
                 {key: 'name', label: 'Nombre', sortable: true, class: 'text-center'},
@@ -127,7 +126,7 @@ export default {
             filterOn: [],
             roleModal: {
                 id: 'id_modal_role',
-                title: 'Crear Role',
+                title: 'Crear Nuevo Role',
                 edit: false,
                 url: this.url+'/save'
             },
@@ -137,10 +136,9 @@ export default {
                 edit: true,
                 roleId: null,
                 rolePermission: [],
-                permissions: [],
+                permissions: this.permission,
                 url: this.url+'/permisos/update'
             }
-            //variables
         }
     },
     computed: {
@@ -153,8 +151,7 @@ export default {
         }
     },
     mounted() {
-        this.totalRows = this.items.length
-        console.log(this.items)
+        if(this.items!=null){this.totalRows = this.items.length}
     },
     methods: {
         onFiltered(filteredItems) {
@@ -168,21 +165,20 @@ export default {
             this.getPermissions()
             this.permissionModal.roleId = id
             this.permissionModal.rolePermission = item
-            this.permissionModal.permissions = this.permissions
             this.$root.$emit('bv::toggle::modal', this.permissionModal.id)
         },
         getRoles() {
             axios.get(this.url).then(res => {
                 this.items = res.data
             })
-            this.totalRows = this.items.length
+            if(this.items!=null){this.totalRows = this.items.length}
         },
         getPermissions() {
             axios.get(this.url+"/permisos").then(res => {
                 this.permissons = res.data
             })
         },
-        deleteUser(id) {
+        deleteRole(id) {
             let url = this.url + "/delete/" + id
             Swal.fire({
                 icon: 'question',

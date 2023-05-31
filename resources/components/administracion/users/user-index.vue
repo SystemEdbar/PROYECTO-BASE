@@ -38,8 +38,8 @@
                 small
                 :thead-class="'bg-thead'"
                 @filtered="onFiltered">
-                <template #cell(estado)="row">
-                    <div v-if="row.item.estado == '0'" class="table-danger">
+                <template #cell(status)="row">
+                    <div v-if="row.item.status === 0" class="table-danger">
                         SUSPENDIDO
                     </div>
                     <div v-else class="table-success">
@@ -52,12 +52,18 @@
                     </li>
                 </template>
                 <template #cell(actions)="row">
-                    <i class="fas fa-user-tag text-primary" @click="updateRole(row.item.id, row.item.roles)"
-                       title="Asignar Roles" role="button" aria-hidden="true"></i>
-                    <i class="fas fa-edit text-success" @click="edit(row.item)"
-                       title="Editar usuario" role="button" aria-hidden="true"></i>
-                    <i class="fas fa-trash text-danger" @click="deleteUser(row.item.id)"
-                       title="Eliminar usuario" role="button" aria-hidden="true"></i>
+                    <div v-if="row.item.roles.some(roles => roles.name === 'Super Administrador')">
+                    </div>
+                    <div v-else>
+                        <i class="fas fa-edit text-success" @click="edit(row.item)"
+                           title="Editar usuario" role="button" aria-hidden="true"></i>
+                        <i class="fas fa-user-tag text-primary" @click="updateRole(row.item.id, row.item.roles)"
+                           title="Asignar Roles" role="button" aria-hidden="true"></i>
+                        <i class="fas fa-user-lock text-secundary" @click="suspendedUser(row.item.id)"
+                           title="Habilitar o Deshabilitar" role="button" aria-hidden="true"></i>
+                        <i class="fas fa-trash text-danger" @click="deleteUser(row.item.id)"
+                           title="Eliminar usuario" role="button" aria-hidden="true"></i>
+                    </div>
                 </template>
                 <template #cell(id)="row">
                     {{ row.index + 1 }}
@@ -132,7 +138,7 @@ export default {
                 {key: 'lastname', label: 'Apellido', sortable: true, class: 'text-center'},
                 {key: 'email', label: 'Correo', sortable: true, class: 'text-center'},
                 {key: 'roles', label: 'Roles', sortable: true, class: 'text-center'},
-                {key: 'estado', label: 'Estado', sortable: true, class: 'text-center'},
+                {key: 'status', label: 'Estado', sortable: true, class: 'text-center'},
                 {key: 'actions', label: 'Acciones', class: 'text-center'}
             ],
             totalRows: 1,
@@ -160,7 +166,6 @@ export default {
                 roles: [],
                 url: this.url+'/roles/update'
             }
-            //variables
         }
     },
     computed: {
@@ -173,7 +178,7 @@ export default {
         }
     },
     mounted() {
-        this.totalRows = this.items.length
+        if(this.items!=null){this.totalRows = this.items.length}
     },
     methods: {
         onFiltered(filteredItems) {
@@ -213,11 +218,36 @@ export default {
                 this.roles = res.data
             })
         },
+        suspendedUser(id){
+            let url = this.url + "/suspended/" + id
+            Swal.fire({
+                icon: 'question',
+                title: '¿Esta opción Habilita/Deshabilita este usuario?',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: "Confirmar",
+                reverseButtons: true,
+            }).then(result => {
+                if (result.value) {
+                    axios.delete(url).then((res) => {
+                        SwalAlert(res.data.status, res.data.message, 6000)
+                        this.getUsers()
+                    }).catch(
+                        function (error) {
+                            if (error.response.data.status) {
+                                SwalAlert(error.response.data.status, error.response.data.message, 6000)
+                            }
+                        })
+                }
+
+            })
+        },
         deleteUser(id) {
             let url = this.url + "/delete/" + id
             Swal.fire({
                 icon: 'question',
-                title: '¿Estas seguro que deseas inhabilitar este usuario?',
+                title: '¿Estas seguro que deseas eliminar este usuario?',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',

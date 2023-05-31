@@ -70,6 +70,7 @@ export default {
             this.$emit('updateRoles')
             this.$root.$emit('bv::toggle::modal', this.permissionModal.id)
         },
+
         getNamePermission(){
             this.namePermission = {}
             for (let name in this.permissionModal.permissions){

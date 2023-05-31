@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>AFERA</title>
+    <title>UPCV</title>
     <link rel="icon" type="image/png" href="{{asset('asset/img/logo.png')}}"/>
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -28,17 +28,15 @@
 <!-- /.navbar -->
 
     <!-- Main Sidebar Container -->
-    <aside class="main-sidebar   sidebar-light-purple elevation-2">
+    <aside class="main-sidebar sidebar-dark-purple elevation-1">
         <!-- Brand Logo -->
-        <a href="{{route('dashboard')}}" class="brand-link text-center">
-            <span class="brand-text font-weight-light text-white">
-                <img src="{{asset('asset/img/logo.png')}}" alt="Logo" class="img-circle" style="opacity: .8; height: 35px">
-            </span>
+        <a href="{{route('dashboard')}}" class="brand-link text-center active">
+            UPCV
         </a>
         <!-- Sidebar -->
         <div class="sidebar " onclose="true" >
             <nav class="mt-2" >
-                <ul class="nav nav-pills nav-sidebar flex-column nav-child-indent" data-widget="treeview" role="menu" id="mprincipal" data-accordion="true">
+                <ul class="nav nav-pills nav-sidebar flex-column nav-child-indent" data-widget="treeview" role="menu" id="principal" data-accordion="true">
                     <li class="nav-header">MENÚ PRINCIPAL</li>
                     @foreach ($menu->getMenu() as $key=>$item)
                         @if ($item['father']!=0)
@@ -86,7 +84,7 @@
 
     <footer class="main-footer">
         <div class="float-right d-none d-sm-block">
-            <b><a href="https://jetstream.laravel.com">{{config('app.name')}}</a></b>
+            <b><a href="https://upcv.gob.gt/" target="_blank">Unidad Para La Prevención Comunitaria De La Violencia</a></b>
         </div>
         <strong>Powered by</strong> <a href="">System Edbar</a>
     </footer>

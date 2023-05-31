@@ -3,7 +3,7 @@
         <ValidationObserver v-slot="{ handleSubmit, reset }">
             <form @submit.prevent="handleSubmit(onSubmit)" @reset.prevent="reset" id="id_formulario">
                 <div class="row">
-                    <ValidationProvider class="mb-3 mx-5 col-lg" rules="required|alpha_spaces|min:8|max:30" v-slot="{ errors , classes}">
+                    <ValidationProvider class="mb-3 mx-5 col-lg" rules="required|alpha_spaces|min:5|max:30" v-slot="{ errors , classes}">
                         <label for="name">Nombre</label>
                         <input type="text" :class="classes" class="form-control" id="name" name="name"
                                placeholder="Ingrese Nombre de Role" v-model="data.name" v-bind:autocomplete="'off'">
@@ -50,11 +50,7 @@ export default {
                     Swal.fire("Algo salio mal", `${Object.values(error.response.data.errors)}`, "error");
                 }
             })
-        },
-        hideModal(){
-            this.$emit('updateRoles')
-            this.$root.$emit('bv::toggle::modal', this.roleModal.id)
-        },
+        }
     }
 }
 </script>
