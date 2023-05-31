@@ -19,10 +19,12 @@ class UsuarioSeeder extends Seeder
     public function run()
     {
         //Asignacion de Roles
-        $rol = Role::findByName('Super Administrador');
+        $rol1 = Role::findByName('Super Administrador');
+        $rol2 = Role::findByName('Administrador');
         $permisos = Permission::all();
         foreach ($permisos as $permiso){
-            $permiso->assignRole($rol);
+            $permiso->assignRole($rol1);
+            $permiso->assignRole($rol2);
         }
 
         //Creacion de Super Usuario
