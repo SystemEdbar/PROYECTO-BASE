@@ -28,7 +28,7 @@ class UsersController extends Controller
         try {
             $dataRequest = $request->validated();
 
-            $dataRequest['password'] = $dataRequest['password'] ?? 'Upcv2020';
+            $dataRequest['password'] = $dataRequest['password'] ?? '1234567890';
             $dataRequest['password'] = Hash::make($dataRequest['password']);
 
             User::create($dataRequest);
@@ -52,7 +52,6 @@ class UsersController extends Controller
             $updateData = [
                 'name' => $dataRequest['name'],
                 'lastname' => $dataRequest['lastname'],
-                'dpi' => $dataRequest['dpi'],
                 'email' => $dataRequest['email']
             ];
             if($dataRequest['password']) {$updateData['password'] = Hash::make($dataRequest['password']);}

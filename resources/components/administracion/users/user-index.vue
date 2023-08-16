@@ -189,8 +189,8 @@ export default {
             this.userModal.title='Editar Usuario'
             this.userModal.edit =true
             this.userModal.url =this.url+'/update'
-            const {id, name, lastname, dpi, email, password} = item
-            this.userModal.user = {id, name, lastname, dpi, email, password}
+            const {id, name, lastname, email, password} = item
+            this.userModal.user = {id, name, lastname, email, password}
             this.$root.$emit('bv::toggle::modal', this.userModal.id)
         },
         create() {

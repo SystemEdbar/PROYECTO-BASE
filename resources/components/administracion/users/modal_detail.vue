@@ -3,27 +3,21 @@
         <ValidationObserver v-slot="{ handleSubmit, reset }">
             <form @submit.prevent="handleSubmit(onSubmit)" @reset.prevent="reset" id="id_formulario">
                 <div class="row">
-                    <ValidationProvider class="form-group col-md-4" rules="required|alpha_spaces|min:10|max:45" v-slot="{ errors , classes}">
+                    <ValidationProvider class="form-group col-md-6" rules="required|alpha_spaces|min:10|max:45" v-slot="{ errors , classes}">
                         <label>Nombres</label>
                         <input type="text" :class="classes" class="form-control" name="Nombre"
                                placeholder="Ingrese los Nombres" v-model="data.name" autocomplete="new-name">
                         <span class="text-danger">{{ errors[0] }}</span>
                     </ValidationProvider>
-                    <ValidationProvider class="form-group col-md-4" rules="required|alpha_spaces|min:10|max:45" v-slot="{ errors , classes}">
+                    <ValidationProvider class="form-group col-md-6" rules="required|alpha_spaces|min:10|max:45" v-slot="{ errors , classes}">
                         <label>Apellidos</label>
                         <input type="text" :class="classes" class="form-control" name="Apellido"
                                placeholder="Ingrese los Apellidos" v-model="data.lastname" autocomplete="new-lastname">
                         <span class="text-danger">{{ errors[0] }}</span>
                     </ValidationProvider>
-                    <ValidationProvider class="form-group col-md-4" rules="required|numeric|min:13|max:13" v-slot="{ errors , classes}">
-                        <label>DPI</label>
-                        <input type="text" :class="classes" class="form-control" name="DPI"
-                               placeholder="Ingrese no. DPI" v-model="data.dpi" autocomplete="new-dpi">
-                        <span class="text-danger">{{ errors[0] }}</span>
-                    </ValidationProvider>
                 </div>
                 <div class="row center-align">
-                    <ValidationProvider class="form-group col-md-5" rules="required|email|min:10|max:100" v-slot="{ errors , classes}">
+                    <ValidationProvider class="form-group col-md-6" rules="required|email|min:10|max:100" v-slot="{ errors , classes}">
                         <label>Correo</label>
                         <input type="email" :class="classes" class="form-control" name="Correo"
                                placeholder="Ingrese el correo" v-model="data.email" autocomplete="new-email">
@@ -53,7 +47,6 @@ export default {
         return {
             data: {
                 id: null,
-                dpi: null,
                 name: null,
                 lastname: null,
                 email: null,

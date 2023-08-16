@@ -26,7 +26,6 @@ class PostRequestUsers extends FormRequest
         return [
             'name'=>'required',
             'lastname'=>'required',
-            'dpi'=>'required',
             'email'=>'required|email',
             'password'=>'nullable',
         ];
